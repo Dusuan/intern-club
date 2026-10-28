@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juan Manuel Sandoval Ramírez - Microsoft Internet Explorer</title>
+  <style>
+  
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #008080; /* Classic Windows Teal Desktop */
+      background-image: 
+        radial-gradient(#004d4d 15%, transparent 16%),
+        radial-gradient(#004d4d 15%, transparent 16%);
+      background-size: 8px 8px;
+      background-position: 0 0, 4px 4px;
+      font-family: "MS Sans Serif", Tahoma, Verdana, sans-serif;
+      font-size: 11px;
+      color: #000000;
+      padding: 10px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      overflow-x: hidden;
+    }
+
+    /* Windows 98 / 2000 Window Frame */
+    .win-window {
+      width: 100%;
+      max-width: 980px;
+      background-color: #c0c0c0;
+      border-top: 3px solid #ffffff;
+      border-left: 3px solid #ffffff;
+      border-right: 3px solid #404040;
+      border-bottom: 3px solid #404040;
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Window Title Bar */
+    .win-titlebar {
+      background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+      padding: 3px 4px 3px 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      font-family: Tahoma, "MS Sans Serif", sans-serif;
+      font-weight: bold;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      user-select: none;
+    }
+
+    .win-title-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .ie-icon-small {
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+    }
+
+    .win-controls {
+      display: flex;
+      gap: 2px;
+    }
+
+    .win-btn {
+      width: 16px;
+      height: 14px;
+      background: #c0c0c0;
+      border-top: 1.5px solid #ffffff;
+      border-left: 1.5px solid #ffffff;
+      border-right: 1.5px solid #404040;
+      border-bottom: 1.5px solid #404040;
+      font-family: "MS Sans Serif", Tahoma, sans-serif;
+      font-size: 9px;
+      font-weight: bold;
+      line-height: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #000;
+      user-select: none;
+    }
+
+    .win-btn:active {
+      border-top: 1.5px solid #404040;
+      border-left: 1.5px solid #404040;
+      border-right: 1.5px solid #ffffff;
+      border-bottom: 1.5px solid #ffffff;
+      padding-top: 1px;
+      padding-left: 1px;
+    }
+
+    /* Menu Bar */
+    .win-menubar {
+      background: #c0c0c0;
+      padding: 2px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #808080;
+    }
+
+    .win-menu-items {
+      display: flex;
+      gap: 12px;
+      font-size: 11px;
+    }
+
+    .win-menu-item {
+      cursor: pointer;
+      padding: 1px 4px;
+    }
+
+    .win-menu-item:hover {
+      background: #000080;
+      color: #ffffff;
+    }
+
+    .win-menu-item u {
+      text-decoration: underline;
+    }
+
+    .ie-throbber {
+      width: 22px;
+      height: 22px;
+      background: #000;
+      border-top: 1.5px solid #808080;
+      border-left: 1.5px solid #808080;
+      border-right: 1.5px solid #ffffff;
+      border-bottom: 1.5px solid #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Tool Bar */
+    .win-toolbar {
+      background: #c0c0c0;
+      padding: 3px 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-bottom: 1px solid #808080;
+      flex-wrap: wrap;
+    }
+
+    .tool-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 6px;
+      background: #c0c0c0;
+      border: 1px solid transparent;
+      cursor: pointer;
+      user-select: none;
+      font-size: 11px;
+    }
+
+    .tool-btn:hover {
+      border-top: 1px solid #ffffff;
+      border-left: 1px solid #ffffff;
+      border-right: 1px solid #808080;
+      border-bottom: 1px solid #808080;
+    }
+
+    .tool-btn:active {
+      border-top: 1px solid #808080;
+      border-left: 1px solid #808080;
+      border-right: 1px solid #ffffff;
+      border-bottom: 1px solid #ffffff;
+      background: #d4d0c8;
+    }
+
+    .tool-separator {
+      width: 2px;
+      height: 20px;
+      border-left: 1px solid #808080;
+      border-right: 1px solid #ffffff;
+      margin: 0 2px;
+    }
+
+    /* Address Bar */
+    .win-addressbar {
+      background: #c0c0c0;
+      padding: 3px 6px 4px 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 2px solid #808080;
+    }
+
+    .address-label {
+      font-size: 11px;
+      color: #404040;
+    }
+
+    .address-input-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #dfdfdf;
+      border-bottom: 2px solid #dfdfdf;
+      padding: 2px 4px;
+      height: 22px;
+    }
+
+    .address-input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-family: Tahoma, "MS Sans Serif", sans-serif;
+      font-size: 11px;
+      color: #000000;
+    }
+
+    .go-btn {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: #c0c0c0;
+      border-top: 1.5px solid #ffffff;
+      border-left: 1.5px solid #ffffff;
+      border-right: 1.5px solid #404040;
+      border-bottom: 1.5px solid #404040;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .go-btn:active {
+      border-top: 1.5px solid #404040;
+      border-left: 1.5px solid #404040;
+      border-right: 1.5px solid #ffffff;
+      border-bottom: 1.5px solid #ffffff;
+    }
+
+    /* ==========================================================================
+       MAIN WEB VIEWPORT - 3 COLUMNS MATCHING THE 2000s WEBNODE IMAGE
+       ========================================================================== */
+    .viewport {
+      background-color: #000000;
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+      display: grid;
+      grid-template-columns: 190px 1fr 190px;
+      min-height: 720px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 820px) {
+      .viewport {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-col {
+        display: none !important;
+      }
+    }
+
+    /* SIDEBARS: Pastel Cloud Gradient */
+    .sidebar-col {
+      background: linear-gradient(180deg, #d38ec7 0%, #a272b5 25%, #6997cf 55%, #8fd1e8 80%, #fbd5a9 100%);
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      background-repeat: repeat-y;
+      background-size: cover;
+    }
+
+    /* Fluffy Pixel Clouds */
+    .cloud-deco {
+      position: absolute;
+      width: 75px;
+      height: 28px;
+      background: #ffffff;
+      border-radius: 20px;
+      opacity: 0.92;
+      box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.15);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .cloud-deco::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 12px;
+      width: 28px;
+      height: 28px;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+    .cloud-deco::after {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: 30px;
+      width: 32px;
+      height: 32px;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+
+    .cloud-1 { top: 35px; left: -10px; transform: scale(0.9); }
+    .cloud-2 { top: 220px; right: -8px; transform: scale(1.1); }
+    .cloud-3 { top: 480px; left: 5px; transform: scale(0.8); }
+    .cloud-4 { top: 620px; right: 10px; transform: scale(0.95); }
+
+    /* Retro Sidebar Image Cards */
+    .retro-card {
+      width: 140px;
+      height: 140px;
+      background: #000000;
+      border: 3px solid #000000;
+      box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .retro-card img, .retro-card svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      color: #00ff00;
+      font-family: "Courier New", monospace;
+      font-size: 9px;
+      font-weight: bold;
+      text-align: center;
+      padding: 2px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Badges Stack on the Right */
+    .badges-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+      z-index: 2;
+      margin-top: 5px;
+    }
+
+    .web-badge-88x31 {
+      width: 88px;
+      height: 31px;
+      border: 1px solid #404040;
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+      display: block;
+      transition: transform 0.1s ease;
+      background: #000;
+      cursor: pointer;
+    }
+
+    .web-badge-88x31:hover {
+      transform: scale(1.06);
+    }
+
+    .macmall-banner {
+      width: 140px;
+      height: 36px;
+      background: #ffff00;
+      border: 1.5px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 2px;
+      box-shadow: 2px 2px 0 #000;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+    }
+
+    /* CENTER COLUMN: Starfield & Main Content */
+    .center-col {
+      background-color: #020215;
+      background-image: 
+        radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 90px 40px, #ffff55, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 160px 120px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 230px 180px, #55ffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 300px 90px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 350px 240px, #ff55ff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 420px 60px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 480px 190px, #ffff55, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 120px 290px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 280px 360px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 380px 420px, #55ffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 80px 490px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 220px 530px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 450px 500px, #ffff55, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 310px 580px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 150px 640px, #ff55ff, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 500px 700px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Top Bar Controls in Center Column */
+    .center-top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .audio-btn {
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #404040;
+      border-bottom: 2px solid #404040;
+      padding: 4px 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .audio-btn:active {
+      border-top: 2px solid #404040;
+      border-left: 2px solid #404040;
+      border-right: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+    }
+
+    /* Main Logo: 2000s Webnode Style (bubbly orange gradient with eyes) */
+    .logo-container {
+      display: inline-block;
+      margin: 0 auto;
+    }
+
+    .retro-webnode-logo {
+      font-family: "Arial Black", Impact, sans-serif;
+      font-size: 32px;
+      font-style: italic;
+      color: #ff9900;
+      letter-spacing: -1px;
+      text-shadow: 
+        2px 2px 0px #ffffff,
+        -2px -2px 0px #ffffff,
+        2px -2px 0px #ffffff,
+        -2px 2px 0px #ffffff,
+        0px 4px 6px rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      position: relative;
+    }
+
+    .retro-webnode-logo .eye-o {
+      display: inline-block;
+      position: relative;
+      color: #ffaa00;
+    }
+
+    .retro-webnode-logo .eye-o::after {
+      content: '●';
+      position: absolute;
+      top: -3px;
+      left: 7px;
+      font-size: 14px;
+      color: #000000;
+    }
+
+    .email-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .email-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .email-icon-circle {
+      width: 32px;
+      height: 32px;
+      background: radial-gradient(circle at 30% 30%, #5dade2, #1b4f72);
+      border: 1.5px solid #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 0 8px rgba(0, 180, 255, 0.8);
+    }
+
+    .email-btn-label {
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: bold;
+      margin-top: 2px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ==========================================================================
+       USER'S REQUEST: MULTI-COLOR COMIC SANS ROTATING 3D TITLE
+       ========================================================================== */
+    .title-wrapper {
+      perspective: 1000px;
+      margin: 14px 0 10px 0;
+      display: inline-block;
+    }
+
+    .spinning-title {
+      font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: 
+        2px 2px 0 #000000,
+        -2px -2px 0 #000000,
+        2px -2px 0 #000000,
+        -2px 2px 0 #000000,
+        0 0 15px rgba(255, 255, 255, 0.8);
+      display: inline-flex;
+      transform-style: preserve-3d;
+      animation: spin3D 8s infinite linear;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @keyframes spin3D {
+      0% {
+        transform: rotateY(0deg);
+      }
+      50% {
+        transform: rotateY(180deg);
+      }
+      100% {
+        transform: rotateY(360deg);
+      }
+    }
+
+    /* Multi-color Letters */
+    .spinning-title span {
+      display: inline-block;
+      animation: colorPulse 3s infinite alternate ease-in-out;
+    }
+
+    .c-red    { color: #ff3333; }
+    .c-orange { color: #ff9900; }
+    .c-yellow { color: #ffff33; }
+    .c-green  { color: #33ff33; }
+    .c-cyan   { color: #33ffff; }
+    .c-blue   { color: #3399ff; }
+    .c-purple { color: #cc66ff; }
+    .c-pink   { color: #ff33cc; }
+
+    @keyframes colorPulse {
+      0% { filter: hue-rotate(0deg) drop-shadow(0 0 5px rgba(255,255,255,0.7)); }
+      100% { filter: hue-rotate(360deg) drop-shadow(0 0 12px rgba(255,255,0,0.9)); }
+    }
+
+    /* 3D "INFO" BADGE FLANKED BY ORBS */
+    .info-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .spinning-orb {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffff66, #ff0000 60%, #000066 95%);
+      box-shadow: 0 0 10px rgba(255, 200, 0, 0.8), inset -2px -2px 6px rgba(0,0,0,0.6);
+      animation: orbSpin 2.5s infinite linear;
+    }
+
+    @keyframes orbSpin {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.1); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    .info-wordart {
+      font-family: Impact, "Arial Black", sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ffff00;
+      text-transform: uppercase;
+      text-shadow: 
+        1px 1px 0px #cca300,
+        2px 2px 0px #997a00,
+        3px 3px 0px #665200,
+        4px 4px 0px #332900,
+        5px 5px 6px rgba(0,0,0,0.8);
+      transform: perspective(300px) rotateX(15deg) skewX(-4deg);
+    }
+
+    /* Presentation Narrative & Highlighted Words */
+    .presentation-box {
+      max-width: 520px;
+      margin: 0 auto 16px auto;
+      font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+      color: #ff6666;
+      font-size: 16px;
+      line-height: 1.6;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+    }
+
+    .hl-blue {
+      background: #0000ff;
+      color: #ffffff;
+      padding: 0 5px;
+      border-radius: 2px;
+      font-weight: bold;
+      display: inline-block;
+      box-shadow: 1px 1px 0 #fff;
+    }
+
+    .hl-green-under {
+      color: #33ff33;
+      text-decoration: underline;
+      font-weight: bold;
+      font-size: 17px;
+    }
+
+    .hl-yellow {
+      color: #ffff00;
+      font-weight: bold;
+    }
+
+    .hl-cyan {
+      color: #00ffff;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    /* RESUME KEY DETAILS PANEL (Aesthetic Web 1.0 Table) */
+    .user-profile-frame {
+      max-width: 320px;
+      width: 100%;
+      background: #c0c0c0;
+      border-top: 2.5px solid #ffffff;
+      border-left: 2.5px solid #ffffff;
+      border-right: 2.5px solid #404040;
+      border-bottom: 2.5px solid #404040;
+      padding: 3px;
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
+      margin: 10px auto 16px auto;
+      text-align: center;
+    }
+
+    .profile-titlebar {
+      background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+      color: #ffffff;
+      font-family: Tahoma, "MS Sans Serif", sans-serif;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+
+    .profile-img-wrap {
+      background: #000000;
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-height: 380px;
+    }
+
+    .profile-img {
+      width: 100%;
+      height: auto;
+      max-height: 380px;
+      object-fit: contain;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.02);
+    }
+
+    .profile-tagline {
+      font-family: "Comic Sans MS", Tahoma, sans-serif;
+      font-size: 11px;
+      font-weight: bold;
+      color: #000080;
+      background: #ffffd0;
+      border: 1px dashed #ff9900;
+      padding: 4px 6px;
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    .resume-badges-container {
+      max-width: 530px;
+      width: 100%;
+      background: rgba(0, 0, 40, 0.7);
+      border: 2px dashed #ff9900;
+      padding: 10px;
+      margin-bottom: 16px;
+      text-align: left;
+      font-family: "Comic Sans MS", Tahoma, sans-serif;
+    }
+
+    .resume-badge-title {
+      font-size: 13px;
+      color: #ffff00;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .resume-list {
+      list-style-type: square;
+      padding-left: 20px;
+      color: #ffffff;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .resume-list li {
+      margin-bottom: 4px;
+    }
+
+    .resume-list strong {
+      color: #00ffff;
+    }
+
+    /* Call To Action Button (Web 1.0 Bevel Button) */
+    .btn-container {
+      position: relative;
+      margin: 10px 0 18px 0;
+    }
+
+    .get-started-btn {
+      background: #c0c0c0;
+      border-top: 3px solid #ffffff;
+      border-left: 3px solid #ffffff;
+      border-right: 3px solid #404040;
+      border-bottom: 3px solid #404040;
+      padding: 8px 32px;
+      font-family: "MS Sans Serif", Tahoma, sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+      color: #0000aa;
+      text-decoration: underline;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      display: inline-block;
+    }
+
+    .get-started-btn:hover {
+      background: #dcdcdc;
+      color: #ff0000;
+    }
+
+    .get-started-btn:active {
+      border-top: 3px solid #404040;
+      border-left: 3px solid #404040;
+      border-right: 3px solid #ffffff;
+      border-bottom: 3px solid #ffffff;
+      padding-top: 9px;
+      padding-left: 33px;
+    }
+
+    /* Rainbow/Pixel Cursor floating on the button */
+    .pixel-cursor {
+      position: absolute;
+      right: 15px;
+      bottom: -15px;
+      width: 24px;
+      height: 24px;
+      pointer-events: none;
+      animation: cursorBounce 1.2s infinite alternate ease-in-out;
+      filter: drop-shadow(2px 2px 0px #000);
+    }
+
+    @keyframes cursorBounce {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-6px, -8px); }
+    }
+
+    /* ==========================================================================
+       SIDE-BY-SIDE FEATURE FRAMES (NIER:AUTOMATA & RADIOHEAD IN RAINBOWS)
+       ========================================================================== */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      width: 100%;
+      max-width: 530px;
+      margin-bottom: 16px;
+    }
+
+    .showcase-card {
+      background: #c0c0c0;
+      border-top: 2px solid #ffffff;
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #404040;
+      border-bottom: 2px solid #404040;
+      padding: 6px;
+      box-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .showcase-header {
+      width: 100%;
+      background: linear-gradient(90deg, #000080, #1084d0);
+      color: #ffffff;
+      font-family: Tahoma, sans-serif;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 2px 4px;
+      margin-bottom: 6px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .showcase-img-box {
+      width: 100%;
+      height: 145px;
+      background: #000000;
+      border-top: 2px solid #808080;
+      border-left: 2px solid #808080;
+      border-right: 2px solid #ffffff;
+      border-bottom: 2px solid #ffffff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .showcase-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .showcase-img-box img:hover {
+      transform: scale(1.08);
+    }
+
+    .showcase-caption {
+      font-family: "Comic Sans MS", Tahoma, sans-serif;
+      font-size: 10.5px;
+      color: #000000;
+      margin-top: 6px;
+      line-height: 1.35;
+      background: #ffffd0;
+      border: 1px dashed #cca300;
+      padding: 4px;
+      width: 100%;
+    }
+
+    /* Retro Stock Photos (Kid & Grandpa) as in original image */
+    .retro-users-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      max-width: 530px;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .retro-photo-frame {
+      border: 2px solid #ffffff;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      height: 110px;
+      background: #000;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .retro-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .retro-photo-label {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      color: #ffff00;
+      font-family: Tahoma, sans-serif;
+      font-size: 9px;
+      font-weight: bold;
+      padding: 2px 4px;
+    }
+
+    /* 7-SEGMENT DIGITAL GREEN VISITOR COUNTER */
+    .counter-wrapper {
+      margin-top: 4px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .counter-label {
+      font-family: "Courier New", monospace;
+      color: #aaaaaa;
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+
+    .hit-counter {
+      background: #001a00;
+      border-top: 2px solid #000000;
+      border-left: 2px solid #000000;
+      border-right: 2px solid #336633;
+      border-bottom: 2px solid #336633;
+      padding: 3px 8px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 16px;
+      font-weight: 900;
+      color: #00ff00;
+      letter-spacing: 4px;
+      box-shadow: inset 0 0 8px rgba(0, 255, 0, 0.5);
+      text-shadow: 0 0 8px #00ff00;
+    }
+
+    /* Windows 98 / 2000 Status Bar */
+    .win-statusbar {
+      background: #c0c0c0;
+      border-top: 1px solid #808080;
+      padding: 2px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-family: Tahoma, "MS Sans Serif", sans-serif;
+      color: #000000;
+      height: 22px;
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      border-top: 1.5px solid #808080;
+      border-left: 1.5px solid #808080;
+      border-right: 1.5px solid #ffffff;
+      border-bottom: 1.5px solid #ffffff;
+      padding: 1px 4px;
+      height: 18px;
+    }
+
+    .status-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border-top: 1.5px solid #808080;
+      border-left: 1.5px solid #808080;
+      border-right: 1.5px solid #ffffff;
+      border-bottom: 1.5px solid #ffffff;
+      padding: 1px 8px;
+      height: 18px;
+    }
+
+    /* Marquee ticker style */
+    .marquee-container {
+      width: 100%;
+      background: #000080;
+      color: #ffff00;
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 3px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 1px solid #00ffff;
+      border-bottom: 1px solid #00ffff;
+      margin-bottom: 8px;
+    }
+
+    .marquee-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marqueeAnim 18s linear infinite;
+    }
+
+    @keyframes marqueeAnim {
+      0%   { transform: translate(0, 0); }
+      100% { transform: translate(-100%, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MAIN RETRO WINDOW CONTAINER -->
+  <div class="win-window">
+    
+    <!-- 1. WINDOW TITLE BAR -->
+    <div class="win-titlebar">
+      <div class="win-title-left">
+        <!-- Internet Explorer 3D 'e' Icon -->
+        <svg class="ie-icon-small" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" fill="#0072C6"/>
+          <ellipse cx="16" cy="16" rx="15" ry="5" stroke="#FFCC00" stroke-width="2.5" transform="rotate(-30 16 16)"/>
+          <text x="16" y="22" font-family="'Times New Roman', serif" font-weight="bold" font-size="20" fill="#ffffff" text-anchor="middle">e</text>
+        </svg>
+        <span>Juan Manuel Sandoval Ramírez - Microsoft Internet Explorer</span>
+      </div>
+      <div class="win-controls">
+        <div class="win-btn" title="Minimize">_</div>
+        <div class="win-btn" title="Maximize">🗖</div>
+        <div class="win-btn" title="Close" style="color: #900;">✕</div>
+      </div>
+    </div>
+
+    <!-- 2. MENU BAR -->
+    <div class="win-menubar">
+      <div class="win-menu-items">
+        <span class="win-menu-item"><u>F</u>ile</span>
+        <span class="win-menu-item"><u>E</u>dit</span>
+        <span class="win-menu-item"><u>V</u>iew</span>
+        <span class="win-menu-item"><u>F</u>avorites</span>
+        <span class="win-menu-item"><u>T</u>ools</span>
+        <span class="win-menu-item"><u>H</u>elp</span>
+      </div>
+      <!-- Windows / IE Animated Throbber Logo -->
+      <div class="ie-throbber" title="Internet Explorer Connected">
+        <svg width="18" height="18" viewBox="0 0 32 32">
+          <!-- Windows 4-color flag -->
+          <path d="M4 6 L14 4 L14 14 L4 14 Z" fill="#ff3333"/>
+          <path d="M16 4 L28 2 L28 14 L16 14 Z" fill="#33cc33"/>
+          <path d="M4 16 L14 16 L14 26 L4 24 Z" fill="#3399ff"/>
+          <path d="M16 16 L28 16 L28 28 L16 26 Z" fill="#ffcc00"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 3. RETRO TOOLBAR -->
+    <div class="win-toolbar">
+      <div class="tool-btn" onclick="history.back()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back</span>
+      </div>
+      <div class="tool-btn" onclick="history.forward()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span>Forward</span>
+      </div>
+      <div class="tool-btn" onclick="window.stop()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c00" stroke-width="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        <span>Stop</span>
+      </div>
+      <div class="tool-btn" onclick="location.reload()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#080" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        <span>Refresh</span>
+      </div>
+      <div class="tool-btn" onclick="window.scrollTo(0,0)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#840" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        <span>Home</span>
+      </div>
+      <div class="tool-separator"></div>
+      <div class="tool-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#008" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <span>Search</span>
+      </div>
+      <div class="tool-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fc0" stroke="#a80" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>Favorites</span>
+      </div>
+      <div class="tool-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>History</span>
+      </div>
+      <div class="tool-btn" onclick="location.href='mailto:juan.sandoval@cetys.edu.mx'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00c" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Mail</span>
+      </div>
+      <div class="tool-btn" onclick="window.print()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        <span>Print</span>
+      </div>
+    </div>
+
+    <!-- 4. ADDRESS BAR -->
+    <div class="win-addressbar">
+      <span class="address-label">Address</span>
+      <div class="address-input-wrapper">
+        <svg class="ie-icon-small" viewBox="0 0 32 32" style="margin-right: 4px;">
+          <circle cx="16" cy="16" r="13" fill="#0072C6"/>
+          <ellipse cx="16" cy="16" rx="14" ry="4.5" stroke="#FFCC00" stroke-width="2" transform="rotate(-30 16 16)"/>
+          <text x="16" y="21" font-family="'Times New Roman', serif" font-weight="bold" font-size="18" fill="#ffffff" text-anchor="middle">e</text>
+        </svg>
+        <input type="text" class="address-input" value="http://www.intern-club.cetys/presentations/JuanManuelSandovalRamirez.html" readonly>
+      </div>
+      <button class="go-btn" onclick="alert('Conectado a la red de CETYS Intern Club.')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#008000"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span>Go</span>
+      </button>
+    </div>
+
+    <!-- RETRO MARQUEE TICKER -->
+    <div class="marquee-container">
+      <div class="marquee-text">
+        ★★★ BIENVENIDOS A LA PRESENTACIÓN DE JUAN MANUEL SANDOVAL RAMÍREZ ★★★ SOFTWARE ENGINEER INTERN EN META (SUMMER 2025 &amp; 2026) ★ CETYS UNIVERSIDAD (GPA 98/100) ★ 1ST PLACE EXPO INGENIERÍA &amp; SEMPRA INNOVATION ★ JUEGO FAVORITO: NieR:Automata ★ ÁLBUM FAVORITO: Radiohead - In Rainbows ★★★
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         5. VIEWPORT (3 COLUMNS LIKE THE 2000s WEBNODE AESTHETIC)
+         ====================================================================== -->
+    <div class="viewport">
+      
+      <!-- LEFT COLUMN (Clouds Background + Retro Aesthetic Images) -->
+      <div class="sidebar-col">
+        <!-- Floating Clouds Decoration -->
+        <div class="cloud-deco cloud-1"></div>
+        <div class="cloud-deco cloud-2"></div>
+        <div class="cloud-deco cloud-3"></div>
+
+        <!-- 1. Retro Pink Vaporwave CRT Computer -->
+        <div class="retro-card" title="Vaporwave PC 1998">
+          <svg viewBox="0 0 160 160" width="100%" height="100%">
+            <!-- Vaporwave Gradient Background -->
+            <defs>
+              <linearGradient id="vpg" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ff71ce"/>
+                <stop offset="60%" stop-color="#01cdfe"/>
+                <stop offset="100%" stop-color="#05ffa1"/>
+              </linearGradient>
+            </defs>
+            <rect width="160" height="160" fill="url(#vpg)"/>
+            <!-- Palm Tree Silhouettes -->
+            <path d="M20 160 Q 30 110 38 75 Q 40 70 42 65" stroke="#220033" stroke-width="4" fill="none"/>
+            <path d="M42 65 Q 15 55 5 70 M42 65 Q 20 40 10 45 M42 65 Q 40 35 48 35 M42 65 Q 65 42 75 55 M42 65 Q 65 65 60 78" stroke="#220033" stroke-width="2.5" fill="none"/>
+            <!-- Retro Macintosh CRT Computer -->
+            <rect x="55" y="45" width="70" height="75" rx="6" fill="#f4e0c8" stroke="#333" stroke-width="2"/>
+            <rect x="63" y="53" width="54" height="42" rx="4" fill="#000033" stroke="#555" stroke-width="1.5"/>
+            <!-- Screen glow text -->
+            <text x="90" y="72" font-family="'Courier New', monospace" font-size="8" fill="#00ff66" text-anchor="middle">CETYS '27</text>
+            <text x="90" y="84" font-family="'Courier New', monospace" font-size="8" fill="#ff71ce" text-anchor="middle">&lt;META/&gt;</text>
+            <!-- Floppy Drive Slot -->
+            <rect x="65" y="104" width="28" height="3" fill="#444"/>
+            <circle x="110" y="105" r="3" fill="#ff4444"/>
+            <!-- Keyboard -->
+            <polygon points="50,132 130,132 138,145 42,145" fill="#e6d2bc" stroke="#333" stroke-width="1.5"/>
+            <!-- Scanlines -->
+            <line x1="0" y1="20" x2="160" y2="20" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+            <line x1="0" y1="60" x2="160" y2="60" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+            <line x1="0" y1="100" x2="160" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+            <line x1="0" y1="140" x2="160" y2="140" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          </svg>
+          <div class="card-caption">RETRO_PC.EXE</div>
+        </div>
+
+        <!-- 2. "The Internet" Wireframe Globe -->
+        <div class="retro-card" title="The Internet Wireframe Globe">
+          <svg viewBox="0 0 160 160" width="100%" height="100%">
+            <rect width="160" height="160" fill="#000000"/>
+            <text x="80" y="24" font-family="'Impact', sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" letter-spacing="1">The internet</text>
+            <!-- Wireframe Globe -->
+            <circle cx="80" cy="90" r="48" fill="none" stroke="#00ffcc" stroke-width="1.5"/>
+            <ellipse cx="80" cy="90" rx="48" ry="18" fill="none" stroke="#00ffcc" stroke-width="1"/>
+            <ellipse cx="80" cy="90" rx="48" ry="34" fill="none" stroke="#00ffcc" stroke-width="1"/>
+            <ellipse cx="80" cy="90" rx="18" ry="48" fill="none" stroke="#00ffcc" stroke-width="1"/>
+            <ellipse cx="80" cy="90" rx="34" ry="48" fill="none" stroke="#00ffcc" stroke-width="1"/>
+            <line x1="32" y1="90" x2="128" y2="90" stroke="#00ffcc" stroke-width="1"/>
+            <line x1="80" y1="42" x2="80" y2="138" stroke="#00ffcc" stroke-width="1"/>
+            <!-- Glowing Red/Green Grid Nodes -->
+            <circle cx="80" cy="90" r="3" fill="#ff0055"/>
+            <circle cx="60" cy="78" r="2.5" fill="#ffff00"/>
+            <circle cx="102" cy="102" r="2.5" fill="#00ff66"/>
+            <circle cx="95" cy="65" r="2.5" fill="#ff7700"/>
+          </svg>
+          <div class="card-caption">CYBERSPACE_1999</div>
+        </div>
+
+        <!-- 3. 3D Rainbow Mathematical Surface Plot -->
+        <div class="retro-card" title="3D Mathematical Mesh Plot">
+          <svg viewBox="0 0 160 160" width="100%" height="100%">
+            <rect width="160" height="160" fill="#000022"/>
+            <!-- Rainbow Surface Mesh (Sombrero function style) -->
+            <g transform="translate(10, 15)">
+              <polygon points="70,30 110,48 85,95 40,70" fill="#ff0000" opacity="0.85" stroke="#ffffff" stroke-width="0.5"/>
+              <polygon points="70,30 30,50 40,70 85,95" fill="#ff7700" opacity="0.85" stroke="#ffffff" stroke-width="0.5"/>
+              <polygon points="40,70 85,95 70,125 20,95" fill="#ffff00" opacity="0.85" stroke="#ffffff" stroke-width="0.5"/>
+              <polygon points="85,95 130,85 115,120 70,125" fill="#00ff00" opacity="0.85" stroke="#ffffff" stroke-width="0.5"/>
+              <polygon points="110,48 135,70 130,85 85,95" fill="#00ffff" opacity="0.85" stroke="#ffffff" stroke-width="0.5"/>
+              <polygon points="30,50 10,75 20,95 40,70" fill="#0000ff" opacity="0.85" stroke="#ffffff" stroke-width="0.5"/>
+              <polygon points="20,95 70,125 55,135 10,105" fill="#9900ff" opacity="0.85" stroke="#ffffff" stroke-width="0.5"/>
+              <!-- Bounding box wireframe -->
+              <line x1="10" y1="20" x2="10" y2="135" stroke="#888888" stroke-dasharray="2,2"/>
+              <line x1="10" y1="135" x2="135" y2="135" stroke="#888888" stroke-dasharray="2,2"/>
+              <line x1="135" y1="135" x2="135" y2="20" stroke="#888888" stroke-dasharray="2,2"/>
+              <line x1="10" y1="20" x2="135" y2="20" stroke="#888888" stroke-dasharray="2,2"/>
+            </g>
+          </svg>
+          <div class="card-caption">MATLAB_SURF_3D</div>
+        </div>
+
+      </div>
+
+      <!-- CENTER COLUMN: STARFIELD & CONTENT -->
+      <div class="center-col">
+        
+        <!-- Center Header: Speaker, Webnode-style Logo, Email Icon -->
+        <div class="center-top-bar">
+          
+          <!-- Audio Toggle with Web Audio API Synth Sound -->
+          <button class="audio-btn" id="audioToggle" title="Click para sonido retro sintetizado">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#000">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07" fill="none" stroke="#000" stroke-width="2"/>
+            </svg>
+            <span id="audioStatusText">SOUND: OFF</span>
+          </button>
+
+          <!-- 2000s Webnode-Style Shiny Wordmark -->
+          <div class="logo-container">
+            <div class="retro-webnode-logo">
+              webn<span class="eye-o">o</span>de
+            </div>
+          </div>
+
+          <!-- Email Button with @ Graphic -->
+          <a class="email-btn" href="mailto:juan.sandoval@cetys.edu.mx" title="Enviar E-Mail a Juan Manuel">
+            <div class="email-icon-circle">@</div>
+            <span class="email-btn-label">E-MAIL</span>
+          </a>
+        </div>
+
+        <!-- ROTATING MULTICOLOR COMIC SANS TITLE AS SPECIFIED BY USER -->
+        <div class="title-wrapper">
+          <h1 class="spinning-title" title="Juan Manuel Sandoval Ramírez (Gira en 3D)">
+            <span class="c-red">J</span><span class="c-orange">u</span><span class="c-yellow">a</span><span class="c-green">n</span>
+            <span>&nbsp;</span>
+            <span class="c-cyan">M</span><span class="c-blue">a</span><span class="c-purple">n</span><span class="c-pink">u</span><span class="c-red">e</span><span class="c-orange">l</span>
+            <span>&nbsp;</span>
+            <span class="c-yellow">S</span><span class="c-green">a</span><span class="c-cyan">n</span><span class="c-blue">d</span><span class="c-purple">o</span><span class="c-pink">v</span><span class="c-red">a</span><span class="c-orange">l</span>
+            <span>&nbsp;</span>
+            <span class="c-yellow">R</span><span class="c-green">a</span><span class="c-cyan">m</span><span class="c-blue">í</span><span class="c-purple">r</span><span class="c-pink">e</span><span class="c-red">z</span>
+          </h1>
+        </div>
+
+        <!-- 3D "INFO" BADGE FLANKED BY ROTATING SPHERES -->
+        <div class="info-badge-row">
+          <div class="spinning-orb"></div>
+          <div class="info-wordart">INFO</div>
+          <div class="spinning-orb"></div>
+        </div>
+
+        <!-- MAIN PRESENTATION TEXT WITH COLORFUL WEB 1.0 HIGHLIGHTS -->
+        <div class="presentation-box">
+          ¡Hola! Soy <span class="hl-blue">Juan Manuel Sandoval</span>, futuro Software Engineer  en <span class="hl-green-under">CETYS Universidad</span> y <span class="hl-blue">2x Software Engineer Intern en Meta</span>. Me gusta podrirme jugando <span class="hl-yellow">videojuegos</span> y me super mama el   <span class="hl-cyan">anime</span> 
+        </div>
+
+        <!-- FOTO DE JUAN MANUEL CON AUDÍFONOS CINNAMOROLL  -->
+        <div class="user-profile-frame">
+          <div class="profile-titlebar">
+            <span>📷 JUAN_PROFILE_2000.JPG (320x420)</span>
+            <span style="cursor: pointer;" onclick="alert('Juan Manuel Sandoval Ramírez - CETYS / Meta')">✕</span>
+          </div>
+          <div class="profile-img-wrap">
+            <img src="imgs/juan.jpg" alt="Juan Manuel Sandoval Ramírez con audífonos Cinnamoroll" class="profile-img">
+          </div>
+          <div class="profile-tagline">
+            ★ JUAN MANUEL SANDOVAL RAMÍREZ ★<br>
+          </div>
+        </div>
+
+        <!-- RESUME HIGHLIGHTS PANEL (CETYS, META, PROJECTS, SKILLS) -->
+        <div class="resume-badges-container">
+          <div class="resume-badge-title">⚡ RESUME QUICK FACTS &amp; PRESENTATION STYLE ⚡</div>
+          <ul class="resume-list">
+            <li>
+              <strong>Meta Menlo Park (Summer 2026):</strong> Capacity Management &amp; Fulfillment. Construí herramienta self-serve analítica full-stack (React, TypeScript, GraphQL), reduciendo investigación ~80% y eliminando fallas de OOM en toda la flota.
+            </li>
+            <li>
+              <strong>Meta Menlo Park (Summer 2025):</strong> Infrastructure &amp; Messenger Notifications. Desarrollé <em>Synview</em> (React, Redux, Deno + Prisma), agentes de IA para repositorios y sistema de webhooks GitHub reduciendo latencia un 80%.
+            </li>
+            <li>
+              <strong>Smart Bussing (2x 1er Lugar Expo Ingeniería CETYS 2025 &amp; 2026):</strong> App móvil en React Native (Expo) con Mapbox y sincronización en tiempo real para transporte público en Ensenada.
+            </li>
+            <li>
+              <strong>AURA (1er Lugar SEMPRA Innovation):</strong> Plataforma de entrenamiento interactivo con IA (Node.js, Express, Prisma, PostgreSQL, React, TanStack Query).
+            </li>
+            <li>
+              <strong>Stack Principal:</strong> TypeScript, JavaScript, Java, C++, Python, React, Redux, GraphQL, Node.js, Prisma, PostgreSQL, Docker.
+            </li>
+            <li>
+              <strong>Comunidad:</strong> Miembro activo y promotor de <em>CETYS Intern Club</em>.
+            </li>
+          </ul>
+        </div>
+
+        <!-- RETRO "GET STARTED" BUTTON WITH PIXEL RAINBOW CURSOR -->
+        <div class="btn-container">
+          <button class="get-started-btn" onclick="openContactModal()">
+            GET STARTED
+          </button>
+          <!-- Pixel cursor arrow hovering over button -->
+          <svg class="pixel-cursor" viewBox="0 0 32 32">
+            <polygon points="2,2 2,24 8,18 14,28 18,26 12,16 20,16" fill="#00ffcc" stroke="#000000" stroke-width="2"/>
+            <polygon points="4,5 4,20 8,16 13,24 15,23 11,15 17,15" fill="#ff00cc"/>
+          </svg>
+        </div>
+
+        <!-- ====================================================================
+             SIDE-BY-SIDE FEATURE SHOWCASES:
+             1. NIER:AUTOMATA (FAVORITE GAME)
+             2. RADIOHEAD - IN RAINBOWS (FAVORITE ALBUM)
+             ==================================================================== -->
+        <div class="showcase-grid">
+          
+          <!-- FRAME 1: JUEGO FAVORITO NIER:AUTOMATA -->
+          <div class="showcase-card">
+            <div class="showcase-header">
+              <span>🎮 JUEGO FAVORITO</span>
+            </div>
+            <div class="showcase-img-box">
+              <img src="https://upload.wikimedia.org/wikipedia/en/2/21/Nier_Automata_cover_art.jpg" 
+                   alt="NieR: Automata Portada Oficial" 
+                   title="NieR: Automata - Obra Maestra de Yoko Taro">
+            </div>
+            <div class="showcase-caption">
+              <strong>NieR: Automata</strong><br>
+              Insuperable obra maestra de Yoko Taro y PlatinumGames. Su banda sonora (Keiichi Okabe), combate fluido y reflexión sobre la conciencia y la IA inspiran mi visión como ingeniero.
+            </div>
+          </div>
+
+          <!-- FRAME 2: ÁLBUM FAVORITO RADIOHEAD IN RAINBOWS -->
+          <div class="showcase-card">
+            <div class="showcase-header">
+              <span>🎵 ÁLBUM FAVORITO</span>
+            </div>
+            <div class="showcase-img-box">
+              <img src="https://upload.wikimedia.org/wikipedia/en/1/14/Inrainbowscover.png" 
+                   alt="Radiohead - In Rainbows Album Cover" 
+                   title="Radiohead - In Rainbows (2007)">
+            </div>
+            <div class="showcase-caption">
+              <strong>Radiohead - In Rainbows</strong><br>
+              Lanzado en 2007, es mi álbum predilecto para entrar en "flow" absoluto de código. Pistas como <em>Weird Fishes/Arpeggi</em> y <em>Reckoner</em> son pura elegancia y sincronía matemática.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RETRO CRT USERS ROW (KID & GRANDPA ON COMPUTERS AS IN ORIGINAL WEBNODE IMAGE) -->
+        <div class="retro-users-row">
+          <div class="retro-photo-frame" title="Young Developer Hacking HTML">
+            <svg viewBox="0 0 200 120" width="100%" height="100%">
+              <defs>
+                <linearGradient id="officeKid" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#4a6984"/>
+                  <stop offset="100%" stop-color="#233547"/>
+                </linearGradient>
+              </defs>
+              <rect width="200" height="120" fill="url(#officeKid)"/>
+              <!-- Retro CRT Monitor -->
+              <rect x="95" y="25" width="70" height="60" rx="4" fill="#d9d2c5" stroke="#333" stroke-width="2"/>
+              <rect x="102" y="32" width="56" height="44" rx="2" fill="#001133"/>
+              <text x="130" y="55" font-family="'Courier New', monospace" font-size="7" fill="#00ff66" text-anchor="middle">&lt;html&gt;</text>
+              <text x="130" y="65" font-family="'Courier New', monospace" font-size="7" fill="#ffff00" text-anchor="middle">&lt;body&gt;Juan&lt;/body&gt;</text>
+              <!-- Desk & Keyboard -->
+              <rect x="70" y="85" width="125" height="8" fill="#8b5a2b"/>
+              <polygon points="100,85 150,85 155,95 95,95" fill="#c7bfb1" stroke="#333" stroke-width="1"/>
+              <!-- Kid figure (Young coder) -->
+              <circle cx="55" cy="40" r="16" fill="#ffd1b3"/>
+              <path d="M42 35 Q 55 20 68 35 Q 60 28 42 35" fill="#8b4513"/> <!-- hair -->
+              <rect x="40" y="56" width="30" height="35" rx="5" fill="#3399ff"/> <!-- blue polo -->
+              <!-- Smile -->
+              <circle cx="50" cy="40" r="2" fill="#333"/>
+              <circle cx="60" cy="40" r="2" fill="#333"/>
+              <path d="M50 48 Q 55 53 60 48" stroke="#333" stroke-width="1.5" fill="none"/>
+            </svg>
+            <div class="retro-photo-label">INICIOS: APRENDIENDO CÓDIGO</div>
+          </div>
+
+          <div class="retro-photo-frame" title="Senior Engineer Profiling Queries">
+            <svg viewBox="0 0 200 120" width="100%" height="100%">
+              <defs>
+                <linearGradient id="officeSenior" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#6b5b52"/>
+                  <stop offset="100%" stop-color="#3d332e"/>
+                </linearGradient>
+              </defs>
+              <rect width="200" height="120" fill="url(#officeSenior)"/>
+              <!-- Beige CRT Monitor Tower & Screen -->
+              <rect x="40" y="20" width="75" height="65" rx="5" fill="#e3dbcc" stroke="#333" stroke-width="2"/>
+              <rect x="48" y="27" width="58" height="48" rx="3" fill="#000000"/>
+              <!-- Green terminal graph -->
+              <polyline points="52,65 62,55 72,58 82,40 92,48 100,35" stroke="#00ff00" stroke-width="1.5" fill="none"/>
+              <text x="77" y="72" font-family="'Courier New', monospace" font-size="6" fill="#00ff00" text-anchor="middle">CPU LOAD: 2%</text>
+              <!-- Desk & Keyboard -->
+              <rect x="20" y="85" width="170" height="8" fill="#5c3818"/>
+              <polygon points="50,85 105,85 110,95 45,95" fill="#c7bfb1" stroke="#333" stroke-width="1"/>
+              <!-- Senior Engineer figure with glasses -->
+              <circle cx="150" cy="42" r="16" fill="#fcd2b4"/>
+              <path d="M138 36 Q 150 25 162 36" fill="#ffffff"/> <!-- grey hair -->
+              <!-- Glasses -->
+              <circle cx="145" cy="42" r="4" fill="none" stroke="#222" stroke-width="1.5"/>
+              <circle cx="155" cy="42" r="4" fill="none" stroke="#222" stroke-width="1.5"/>
+              <line x1="149" y1="42" x2="151" y2="42" stroke="#222" stroke-width="1.5"/>
+              <rect x="135" y="58" width="35" height="35" rx="4" fill="#ffffff" stroke="#ccc"/> <!-- white shirt -->
+            </svg>
+            <div class="retro-photo-label">META SCALE: INFRAESTRUCTURA</div>
+          </div>
+        </div>
+
+        <!-- 8-DIGIT VISITOR COUNTER (IDENTICAL VALUE 883038968 TO IMAGE) -->
+        <div class="counter-wrapper">
+          <div class="counter-label">VISITOR HIT COUNTER:</div>
+          <div class="hit-counter" id="visitorCounter">883038968</div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN (Clouds Background, 3D CGI art, Badges) -->
+      <div class="sidebar-col">
+        <!-- Floating Clouds Decoration -->
+        <div class="cloud-deco cloud-1"></div>
+        <div class="cloud-deco cloud-3"></div>
+        <div class="cloud-deco cloud-4"></div>
+
+        <!-- 1. 3D Mannequin Juggling Spheres on Green Checkerboard -->
+        <div class="retro-card" title="3D Raytracing Juggler 1999">
+          <svg viewBox="0 0 160 160" width="100%" height="100%">
+            <!-- Sky gradient -->
+            <defs>
+              <linearGradient id="sky3d" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3399ff"/>
+                <stop offset="50%" stop-color="#99ccff"/>
+                <stop offset="50%" stop-color="#006600"/>
+              </linearGradient>
+            </defs>
+            <rect width="160" height="80" fill="#66a3ff"/>
+            <!-- Green Checkerboard Floor -->
+            <g transform="translate(0, 80)">
+              <polygon points="0,0 160,0 160,80 0,80" fill="#009933"/>
+              <!-- Perspective lines -->
+              <polygon points="0,0 20,0 0,80" fill="#66ff66" opacity="0.6"/>
+              <polygon points="40,0 60,0 40,80 10,80" fill="#66ff66" opacity="0.6"/>
+              <polygon points="80,0 100,0 100,80 70,80" fill="#66ff66" opacity="0.6"/>
+              <polygon points="120,0 140,0 160,80 130,80" fill="#66ff66" opacity="0.6"/>
+              <!-- Horizontal perspective lines -->
+              <line x1="0" y1="12" x2="160" y2="12" stroke="#004d1a" stroke-width="1"/>
+              <line x1="0" y1="28" x2="160" y2="28" stroke="#004d1a" stroke-width="1.5"/>
+              <line x1="0" y1="50" x2="160" y2="50" stroke="#004d1a" stroke-width="2"/>
+            </g>
+            <!-- 3D Mannequin Robot Juggler -->
+            <ellipse cx="80" cy="95" rx="14" ry="18" fill="#d9534f" stroke="#333"/>
+            <circle cx="80" cy="72" r="10" fill="#c0392b" stroke="#333"/>
+            <!-- Eye -->
+            <circle cx="80" cy="72" r="4" fill="#33ffff"/>
+            <!-- Arms / Legs -->
+            <line x1="68" y1="90" x2="50" y2="105" stroke="#f0ad4e" stroke-width="5" stroke-linecap="round"/>
+            <line x1="92" y1="90" x2="110" y2="105" stroke="#f0ad4e" stroke-width="5" stroke-linecap="round"/>
+            <line x1="72" y1="110" x2="65" y2="140" stroke="#d9534f" stroke-width="5" stroke-linecap="round"/>
+            <line x1="88" y1="110" x2="95" y2="140" stroke="#d9534f" stroke-width="5" stroke-linecap="round"/>
+            <!-- 3 Juggling Spheres -->
+            <circle cx="48" cy="85" r="9" fill="radial-gradient(circle at 30% 30%, #55ffff, #0055aa)" stroke="#222"/>
+            <circle cx="80" cy="40" r="10" fill="radial-gradient(circle at 30% 30%, #ffff55, #aa5500)" stroke="#222"/>
+            <circle cx="112" cy="85" r="9" fill="radial-gradient(circle at 30% 30%, #55ff55, #005500)" stroke="#222"/>
+          </svg>
+          <div class="card-caption">RAYTRACE_3D.CGI</div>
+        </div>
+
+        <!-- 2. Cyber Surfer on Ocean Waves -->
+        <div class="retro-card" title="Internet Surfer LOL">
+          <svg viewBox="0 0 160 160" width="100%" height="100%">
+            <!-- Sky and Cyber Waves -->
+            <rect width="160" height="90" fill="#a0d8ef"/>
+            <rect y="90" width="160" height="70" fill="#005588"/>
+            <!-- Wave crests -->
+            <path d="M 0 95 Q 30 75 60 95 T 120 95 T 160 95 L 160 160 L 0 160 Z" fill="#0077b6"/>
+            <path d="M 0 110 Q 40 90 80 110 T 160 110 L 160 160 L 0 160 Z" fill="#0096c7"/>
+            <!-- Foam splashes -->
+            <circle cx="45" cy="118" r="3" fill="#ffffff"/>
+            <circle cx="55" cy="115" r="2" fill="#ffffff"/>
+            <circle cx="130" cy="120" r="4" fill="#ffffff"/>
+            <!-- Surfboard -->
+            <polygon points="35,122 135,108 145,114 45,128" fill="#ffff00" stroke="#ff6600" stroke-width="1.5"/>
+            <!-- Surfer Figure in Wetsuit -->
+            <ellipse cx="78" cy="80" rx="9" ry="16" fill="#111111" transform="rotate(15 78 80)"/>
+            <circle cx="84" cy="62" r="8" fill="#111111"/>
+            <!-- Arms forward -->
+            <path d="M 75 75 Q 95 72 105 85" stroke="#111111" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M 72 82 Q 88 95 98 108" stroke="#111111" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <!-- Floating Email Envelopes & "LOL" cubes -->
+            <g transform="translate(15, 30)">
+              <rect width="26" height="18" fill="#ffffff" stroke="#003366" stroke-width="1"/>
+              <polyline points="0,0 13,10 26,0" fill="none" stroke="#003366" stroke-width="1"/>
+            </g>
+            <g transform="translate(115, 38)">
+              <rect width="24" height="20" fill="#ffffff" stroke="#cc0000" stroke-width="1.5"/>
+              <text x="12" y="14" font-family="'Arial Black', sans-serif" font-size="8" fill="#cc0000" text-anchor="middle">LOL</text>
+            </g>
+          </svg>
+          <div class="card-caption">SURF_THE_WEB</div>
+        </div>
+
+        <!-- 3. Web Badges Stack (Netscape, Flash, IE, MacMall) -->
+        <div class="badges-stack">
+          
+          <!-- Netscape Now 3.0 Badge -->
+          <svg class="web-badge-88x31" viewBox="0 0 88 31" title="Netscape Now 3.0 Compatible">
+            <rect width="88" height="31" fill="#003366"/>
+            <!-- Ship steering wheel / N logo -->
+            <circle cx="16" cy="15" r="9" fill="none" stroke="#00ffcc" stroke-width="1.5"/>
+            <text x="16" y="20" font-family="'Times New Roman', serif" font-weight="bold" font-size="14" fill="#ffffff" text-anchor="middle">N</text>
+            <rect x="30" y="0" width="58" height="31" fill="#002244"/>
+            <text x="59" y="12" font-family="Arial, sans-serif" font-weight="900" font-size="8" fill="#ffffff" text-anchor="middle">NETSCAPE</text>
+            <rect x="36" y="15" width="46" height="11" fill="#00cc99"/>
+            <text x="59" y="24" font-family="'Arial Black', sans-serif" font-size="8" fill="#000000" text-anchor="middle">NOW 3.0</text>
+          </svg>
+
+          <!-- Get Flash Player Badge -->
+          <svg class="web-badge-88x31" viewBox="0 0 88 31" title="Macromedia Get FLASH">
+            <rect width="88" height="31" fill="#000088"/>
+            <!-- Sunburst / Flash emblem -->
+            <polygon points="15,4 18,12 26,15 18,18 15,26 12,18 4,15 12,12" fill="#ff0000"/>
+            <polygon points="15,7 17,13 23,15 17,17 15,23 13,17 7,15 13,13" fill="#ffff00"/>
+            <!-- Text -->
+            <rect x="30" y="0" width="58" height="31" fill="#000055"/>
+            <text x="59" y="12" font-family="'Arial Black', sans-serif" font-size="8" fill="#ffff00" text-anchor="middle">GET</text>
+            <text x="59" y="25" font-family="'Impact', sans-serif" font-size="13" fill="#ffffff" text-anchor="middle" letter-spacing="1">FLASH</text>
+          </svg>
+
+          <!-- Microsoft Internet Explorer Badge -->
+          <svg class="web-badge-88x31" viewBox="0 0 88 31" title="Best Viewed with Microsoft Internet Explorer">
+            <rect width="88" height="31" fill="#ffffff"/>
+            <rect x="0" y="0" width="58" height="31" fill="#cc0000"/>
+            <text x="29" y="12" font-family="Arial, sans-serif" font-size="6.5" font-weight="bold" fill="#ffffff" text-anchor="middle">Microsoft</text>
+            <text x="29" y="21" font-family="'Arial Black', sans-serif" font-size="7" fill="#ffffff" text-anchor="middle">Internet</text>
+            <text x="29" y="28" font-family="'Arial Black', sans-serif" font-size="7" fill="#ffffff" text-anchor="middle">Explorer</text>
+            <!-- Blue 'e' logo on white right side -->
+            <circle cx="73" cy="15" r="10" fill="#0072C6"/>
+            <ellipse cx="73" cy="15" rx="11" ry="3.5" stroke="#FFCC00" stroke-width="1.8" transform="rotate(-30 73 15)"/>
+            <text x="73" y="19" font-family="'Times New Roman', serif" font-weight="bold" font-size="12" fill="#ffffff" text-anchor="middle">e</text>
+          </svg>
+
+          <!-- MacMall PowerBooks Ad Banner -->
+          <div class="macmall-banner" onclick="alert('PowerBook G3 - Apple 1999 Classic.')">
+            <div style="font-size: 8px; font-weight: bold; color: #000; line-height: 1;">
+              MacMall<br>
+              <span style="font-size: 6px; color: #555;">800-932-1569</span>
+            </div>
+            <!-- Little Laptop Icon -->
+            <svg width="22" height="18" viewBox="0 0 24 24" fill="#222">
+              <rect x="4" y="3" width="16" height="12" rx="1" fill="#444"/>
+              <rect x="6" y="5" width="12" height="8" fill="#a0d8ef"/>
+              <polygon points="1,17 23,17 21,20 3,20" fill="#777"/>
+            </svg>
+            <div style="font-size: 8px; font-weight: 900; color: #cc0000; text-align: right;">
+              PowerBooks<br>
+              <span style="font-size: 10px; color: #000;">$1999</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 6. WINDOWS 98 / 2000 STATUS BAR -->
+    <div class="win-statusbar">
+      <div class="status-left">
+        <!-- Page loaded icon -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" stroke="#333" stroke-width="1.5">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <span>Done</span>
+      </div>
+      <div class="status-right">
+        <!-- Internet Zone Icon (globe with IE logo) -->
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0072C6" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+        </svg>
+        <span>Internet</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- INTERACTIVE MODAL (WINDOWS 98 DIALOG BOX STYLE) -->
+  <div id="contactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: #c0c0c0; border-top: 3px solid #ffffff; border-left: 3px solid #ffffff; border-right: 3px solid #404040; border-bottom: 3px solid #404040; width: 380px; box-shadow: 6px 6px 20px rgba(0,0,0,0.8); font-family: Tahoma, sans-serif;">
+      <div style="background: linear-gradient(90deg, #000080, #1084d0); color: white; padding: 4px 6px; font-weight: bold; font-size: 11px; display: flex; justify-content: space-between; align-items: center;">
+        <span>Juan Manuel Sandoval Ramírez - Contact Info</span>
+        <button onclick="closeContactModal()" style="width: 16px; height: 14px; background: #c0c0c0; border: 1.5px outset #fff; font-size: 9px; cursor: pointer;">✕</button>
+      </div>
+      <div style="padding: 14px; font-size: 12px; line-height: 1.5;">
+        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px;">
+          <!-- Information icon -->
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: #0072C6; color: white; display: flex; align-items: center; justify-content: center; font-family: 'Times New Roman', serif; font-size: 22px; font-weight: bold;">i</div>
+          <div>
+            <strong>Juan Manuel Sandoval Ramírez</strong><br>
+            <span style="color: #444;">Software Engineer Intern @ Meta</span>
+          </div>
+        </div>
+        <div style="background: #ffffff; border: 2px inset #808080; padding: 8px; margin-bottom: 12px; font-family: 'Courier New', monospace; font-size: 11px;">
+          • E-mail: <a href="mailto:juan.sandoval@cetys.edu.mx" style="color: #0000aa;">juan.sandoval@cetys.edu.mx</a><br>
+          • Tel: +52 646 256 3846<br>
+          • GitHub: <a href="https://github.com/Dusuan" target="_blank" style="color: #0000aa;">github.com/Dusuan</a><br>
+          • LinkedIn: <a href="https://www.linkedin.com/in/juan-sandoval-195700297/" target="_blank" style="color: #0000aa;">in/juan-sandoval-195700297</a><br>
+          • CETYS Universidad (Graduating 2027)
+        </div>
+        <div style="text-align: right;">
+          <button onclick="closeContactModal()" style="background: #c0c0c0; border-top: 2px solid #ffffff; border-left: 2px solid #ffffff; border-right: 2px solid #404040; border-bottom: 2px solid #404040; padding: 4px 18px; font-weight: bold; cursor: pointer;">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT FOR WEB AUDIO API SYNTH CHIMES & COUNTER -->
+  <script>
+    // Web Audio API Retro 8-Bit Chime
+    let audioCtx = null;
+    let isSoundOn = false;
+
+    function playRetroChime() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.08);
+
+          gain.gain.setValueAtTime(0.08, audioCtx.currentTime + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.08 + 0.22);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start(audioCtx.currentTime + idx * 0.08);
+          osc.stop(audioCtx.currentTime + idx * 0.08 + 0.25);
+        });
+      } catch (e) {
+        console.log("Audio not supported or blocked");
+      }
+    }
+
+    const audioToggle = document.getElementById('audioToggle');
+    const audioStatusText = document.getElementById('audioStatusText');
+
+    audioToggle.addEventListener('click', () => {
+      isSoundOn = !isSoundOn;
+      audioStatusText.textContent = isSoundOn ? 'SOUND: ON' : 'SOUND: OFF';
+      audioStatusText.style.color = isSoundOn ? '#008000' : '#000000';
+      if (isSoundOn) {
+        playRetroChime();
+      }
+    });
+
+    // Visitor Counter persistence
+    const counterEl = document.getElementById('visitorCounter');
+    let visits = parseInt(localStorage.getItem('juan_hits') || '883038968', 10);
+    visits += 1;
+    localStorage.setItem('juan_hits', visits.toString());
+    counterEl.textContent = visits.toString();
+
+    // Modal logic
+    function openContactModal() {
+      if (isSoundOn) playRetroChime();
+      const modal = document.getElementById('contactModal');
+      modal.style.display = 'flex';
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contactModal');
+      modal.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
